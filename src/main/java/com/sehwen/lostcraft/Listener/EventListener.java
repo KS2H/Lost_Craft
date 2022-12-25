@@ -1,7 +1,10 @@
 package com.sehwen.lostcraft.Listener;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,6 +39,10 @@ public class EventListener implements Listener {
 
 			}
 
+		} else if (item.getType() == Material.BLAZE_ROD) {
+			Entity entity = player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.FIREBALL);
+			entity.setVelocity(player.getLocation().getDirection().multiply(5));
+			player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH,1.0f, 1.0f);
 		}
 	}
 }
