@@ -1,5 +1,6 @@
 package com.sehwen.lostcraft.Listener;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -9,8 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Objects;
 
@@ -44,5 +47,19 @@ public class EventListener implements Listener {
 			entity.setVelocity(player.getLocation().getDirection().multiply(5));
 			player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH,1.0f, 1.0f);
 		}
+	}
+	@EventHandler
+	public void onChat(PlayerChatEvent event){
+		Player player = event.getPlayer();
+		String message = event.getMessage();
+		if(message.equals("나에게 힘을 주어라 블레이즈!")){
+			ItemStack item = new ItemStack(Material.BLAZE_ROD);
+			ItemMeta itemMeta = item.getItemMeta();
+			itemMeta.displayName(Component.text("쓸데없이 큰 지팡이"));
+			item.setItemMeta(itemMeta);
+			player.getInventory().addItem(item);
+			player.sendMessage("허락한다");
+		}
+
 	}
 }
