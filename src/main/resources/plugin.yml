@@ -3,3 +3,6 @@ version: '${project.version}'
 main: com.sehwen.lostcraft.Lostcraft
 api-version: 1.19
 authors: [ KS2H ]
+
+depend:
+  - SkillObject
