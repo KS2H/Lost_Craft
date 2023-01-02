@@ -1,5 +1,6 @@
 package com.sehwen.lostcraft.Listener;
 
+import com.sehwen.lostcraft.Skills.SpikeHammerSkill;
 import com.sehwen.lostcraft.Skills.SpikeSkill;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -51,6 +52,13 @@ public class EventListener implements Listener {
 				player.sendMessage("가라 가시몬");
 				SpikeSkill spikeSkill = new SpikeSkill(player.getLocation());
 				spikeSkill.setCloseTimer(10);
+				spikeSkill.setOwner(player);
+				spikeSkill.spawn();
+
+			}else if (item.getType() == Material.IRON_AXE) {
+				player.sendMessage("가라 망치몬");
+				SpikeHammerSkill spikeSkill = new SpikeHammerSkill(player.getLocation());
+				spikeSkill.setCloseTimer(2);
 				spikeSkill.setOwner(player);
 				spikeSkill.spawn();
 			}
