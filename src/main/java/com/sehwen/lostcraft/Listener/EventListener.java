@@ -2,6 +2,7 @@ package com.sehwen.lostcraft.Listener;
 
 import com.sehwen.lostcraft.Skills.SpikeHammerSkill;
 import com.sehwen.lostcraft.Skills.SpikeSkill;
+import com.sehwen.lostcraft.Skills.SpikeWideSkill;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -42,41 +43,31 @@ public class EventListener implements Listener {
 					}
 				}
 
-			}
-			else if (item.getType() == Material.BLAZE_ROD) {
+			} else if (item.getType() == Material.BLAZE_ROD) {
 				Entity entity = player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.FIREBALL);
 				entity.setVelocity(player.getLocation().getDirection().multiply(5));
 				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1.0f, 1.0f);
-			}
-			else if (item.getType() == Material.NETHERITE_SWORD) {
+			} else if (item.getType() == Material.NETHERITE_SWORD) {
 				player.sendMessage("가라 가시몬");
 				SpikeSkill spikeSkill = new SpikeSkill(player.getLocation());
 				spikeSkill.setCloseTimer(10);
 				spikeSkill.setOwner(player);
 				spikeSkill.spawn();
 
-			}else if (item.getType() == Material.IRON_AXE) {
+			} else if (item.getType() == Material.IRON_AXE) {
 				player.sendMessage("가라 망치몬");
-				SpikeHammerSkill spikeSkill = new SpikeHammerSkill(player.getLocation());
-				spikeSkill.setCloseTimer(2);
-				spikeSkill.setOwner(player);
-				spikeSkill.spawn();
+				SpikeHammerSkill spikehammerskill = new SpikeHammerSkill(player.getLocation());
+				spikehammerskill.setCloseTimer(2);
+				spikehammerskill.setOwner(player);
+				spikehammerskill.spawn();
+
+			} else if (item.getType() == Material.IRON_SWORD) {
+				player.sendMessage("지면강타");
+				SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
+				spikewideskill.setCloseTimer(15);
+				spikewideskill.setOwner(player);
+				spikewideskill.spawn();
 			}
 		}
-	}
-
-	@EventHandler
-	public void onChat(PlayerChatEvent event) {
-		Player player = event.getPlayer();
-		String message = event.getMessage();
-		if (message.equals("나에게 힘을 주어라 블레이즈!")) {
-			ItemStack item = new ItemStack(Material.BLAZE_ROD);
-			ItemMeta itemMeta = item.getItemMeta();
-			itemMeta.displayName(Component.text("쓸데없이 큰 지팡이"));
-			item.setItemMeta(itemMeta);
-			player.getInventory().addItem(item);
-			player.sendMessage("허락한다");
-		}
-
 	}
 }
