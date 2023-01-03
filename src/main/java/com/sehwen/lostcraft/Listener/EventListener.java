@@ -64,7 +64,7 @@ public class EventListener implements Listener {
 			} else if (item.getType() == Material.IRON_SWORD) {
 				player.sendMessage("지면강타");
 				SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
-				spikewideskill.setCloseTimer(15);
+				spikewideskill.setCloseTimer(17);
 				spikewideskill.setOwner(player);
 				spikewideskill.spawn();
 			}

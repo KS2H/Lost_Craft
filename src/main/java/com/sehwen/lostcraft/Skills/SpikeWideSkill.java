@@ -10,6 +10,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class SpikeWideSkill extends SkillObject implements SkillBase {
+	private int tick = 0;
+
 	public SpikeWideSkill(Location location) {
 		super(location);
 	}
@@ -27,10 +29,18 @@ public class SpikeWideSkill extends SkillObject implements SkillBase {
 
 	@Override
 	public void skillEffect() {
-		getOwner().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,1,100,false,false));
-		teleport(getDirectionVector().multiply(1.5).add(new Vector(getLocation().getX(),getLocation().getY(),getLocation().getZ())));
-		for (int x = -3; x < 4; x++)
-			for (int z = -3; z <4; z++)
-				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(),getLocation().getX()+x,getLocation().getY()-0.5,getLocation().getZ()+z), EntityType.EVOKER_FANGS);
+		tick++;
+		getOwner().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 100, false, false));
+		if (tick < 15) {
+			teleport(getDirectionVector().multiply(1).add(new Vector(getLocation().getX(), getLocation().getY(), getLocation().getZ())));
+			getLocation().getWorld().spawnEntity(getLocation(), EntityType.EVOKER_FANGS);
+		} else {
+			for (int z = -3; z < 4; z++) {
+				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX(), getLocation().getY(), getLocation().getZ() + z), EntityType.EVOKER_FANGS);
+			}
+			for (int x = -3; x < 4; x++) {
+				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX() + x, getLocation().getY(), getLocation().getZ()), EntityType.EVOKER_FANGS);
+			}
 		}
 	}
+}
