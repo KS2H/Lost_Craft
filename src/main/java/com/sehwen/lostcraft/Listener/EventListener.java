@@ -1,5 +1,6 @@
 package com.sehwen.lostcraft.Listener;
 
+import com.sehwen.lostcraft.Skills.FireBallSkill;
 import com.sehwen.lostcraft.Skills.SpikeHammerSkill;
 import com.sehwen.lostcraft.Skills.SpikeSkill;
 import com.sehwen.lostcraft.Skills.SpikeWideSkill;
@@ -46,7 +47,7 @@ public class EventListener implements Listener {
 			} else if (item.getType() == Material.BLAZE_ROD) {
 				Entity entity = player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.FIREBALL);
 				entity.setVelocity(player.getLocation().getDirection().multiply(5));
-				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1.0f, 1.0f);
+				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
 			} else if (item.getType() == Material.NETHERITE_SWORD) {
 				player.sendMessage("가라 가시몬");
 				SpikeSkill spikeSkill = new SpikeSkill(player.getLocation());
@@ -67,7 +68,14 @@ public class EventListener implements Listener {
 				spikewideskill.setCloseTimer(17);
 				spikewideskill.setOwner(player);
 				spikewideskill.spawn();
+			} else if (item.getType() == Material.FIRE_CHARGE) {
+				player.sendMessage("드래곤볼!");
+				FireBallSkill fireBallSkill = new FireBallSkill(player.getLocation().add(0,player.getEyeHeight(),0));
+				fireBallSkill.setCloseTimer(45);
+				fireBallSkill.setOwner(player);
+				fireBallSkill.spawn();
+				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+				}
 			}
 		}
 	}
-}
