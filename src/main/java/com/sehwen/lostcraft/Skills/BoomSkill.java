@@ -6,13 +6,12 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventHandler;
 import org.bukkit.util.Vector;
 
-public class FireBallSkill extends SkillObject implements SkillBase {
+public class BoomSkill extends SkillObject implements SkillBase {
 	private int tick = 0;
 
-	public FireBallSkill(Location location) {
+	public BoomSkill(Location location) {
 		super(location);
 	}
 

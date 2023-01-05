@@ -1,10 +1,9 @@
 package com.sehwen.lostcraft.Listener;
 
-import com.sehwen.lostcraft.Skills.FireBallSkill;
+import com.sehwen.lostcraft.Skills.BoomSkill;
 import com.sehwen.lostcraft.Skills.SpikeHammerSkill;
 import com.sehwen.lostcraft.Skills.SpikeSkill;
 import com.sehwen.lostcraft.Skills.SpikeWideSkill;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -14,10 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Objects;
 
@@ -70,12 +67,18 @@ public class EventListener implements Listener {
 				spikewideskill.spawn();
 			} else if (item.getType() == Material.FIRE_CHARGE) {
 				player.sendMessage("드래곤볼!");
-				FireBallSkill fireBallSkill = new FireBallSkill(player.getLocation().add(0,player.getEyeHeight(),0));
-				fireBallSkill.setCloseTimer(45);
-				fireBallSkill.setOwner(player);
-				fireBallSkill.spawn();
+				BoomSkill boomSkill = new BoomSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
+				boomSkill.setCloseTimer(45);
+				boomSkill.setOwner(player);
+				boomSkill.spawn();
 				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
-				}
+			} else if (item.getType() == Material.DIAMOND_AXE) {
+				player.sendMessage("밥 먹을 시간이네!");
+				SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
+				spikewideskill.setCloseTimer(60);
+				spikewideskill.setOwner(player);
+				spikewideskill.spawn();
 			}
 		}
 	}
+}
