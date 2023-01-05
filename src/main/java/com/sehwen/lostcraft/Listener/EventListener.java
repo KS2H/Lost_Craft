@@ -1,9 +1,6 @@
 package com.sehwen.lostcraft.Listener;
 
-import com.sehwen.lostcraft.Skills.BoomSkill;
-import com.sehwen.lostcraft.Skills.SpikeHammerSkill;
-import com.sehwen.lostcraft.Skills.SpikeSkill;
-import com.sehwen.lostcraft.Skills.SpikeWideSkill;
+import com.sehwen.lostcraft.Skills.*;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -74,10 +71,10 @@ public class EventListener implements Listener {
 				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
 			} else if (item.getType() == Material.DIAMOND_AXE) {
 				player.sendMessage("밥 먹을 시간이네!");
-				SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
-				spikewideskill.setCloseTimer(60);
-				spikewideskill.setOwner(player);
-				spikewideskill.spawn();
+				SharkSkill sharkSkill = new SharkSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
+				sharkSkill.setCloseTimer(61);
+				sharkSkill.setOwner(player);
+				sharkSkill.spawn();
 			}
 		}
 	}
