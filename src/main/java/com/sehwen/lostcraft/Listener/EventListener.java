@@ -18,6 +18,7 @@ import java.util.Objects;
 public class EventListener implements Listener {
 	@EventHandler
 	public void onSkill(PlayerInteractEvent event) {
+		int tick = 20;
 		Player player = event.getPlayer();
 		double maxHealth = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getDefaultValue();
 		Action action = event.getAction();
@@ -31,11 +32,7 @@ public class EventListener implements Listener {
 					player.sendMessage("사과(을)를 사용했습니다 ");
 					item.setAmount(item.getAmount() - 1);
 					player.getInventory().setItemInMainHand(item);
-					if (player.getHealth() + 6 >= maxHealth) {
-						player.setHealth(maxHealth);
-					} else {
-						player.setHealth(player.getHealth() + 6);
-					}
+					player.setHealth(Math.min(player.getHealth() + 6, maxHealth));
 				}
 
 			} else if (item.getType() == Material.BLAZE_ROD) {
@@ -43,38 +40,61 @@ public class EventListener implements Listener {
 				entity.setVelocity(player.getLocation().getDirection().multiply(5));
 				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
 			} else if (item.getType() == Material.NETHERITE_SWORD) {
-				player.sendMessage("가라 가시몬");
-				SpikeSkill spikeSkill = new SpikeSkill(player.getLocation());
-				spikeSkill.setCloseTimer(10);
-				spikeSkill.setOwner(player);
-				spikeSkill.spawn();
-
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 2);
+					player.sendMessage("가라 가시몬");
+					SpikeSkill spikeSkill = new SpikeSkill(player.getLocation());
+					spikeSkill.setCloseTick(10);
+					spikeSkill.setOwner(player);
+					spikeSkill.spawn();
+				}
 			} else if (item.getType() == Material.IRON_AXE) {
-				player.sendMessage("가라 망치몬");
-				SpikeHammerSkill spikehammerskill = new SpikeHammerSkill(player.getLocation());
-				spikehammerskill.setCloseTimer(2);
-				spikehammerskill.setOwner(player);
-				spikehammerskill.spawn();
-
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 10);
+					player.sendMessage("가라 망치몬");
+					SpikeHammerSkill spikehammerskill = new SpikeHammerSkill(player.getLocation());
+					spikehammerskill.setCloseTick(2);
+					spikehammerskill.setOwner(player);
+					spikehammerskill.spawn();
+				}
 			} else if (item.getType() == Material.IRON_SWORD) {
-				player.sendMessage("지면강타");
-				SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
-				spikewideskill.setCloseTimer(17);
-				spikewideskill.setOwner(player);
-				spikewideskill.spawn();
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 5);
+					player.sendMessage("지면강타");
+					SpikeWideSkill spikewideskill = new SpikeWideSkill(player.getLocation());
+					spikewideskill.setCloseTick(17);
+					spikewideskill.setOwner(player);
+					spikewideskill.spawn();
+				}
 			} else if (item.getType() == Material.FIRE_CHARGE) {
-				player.sendMessage("드래곤볼!");
-				BoomSkill boomSkill = new BoomSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
-				boomSkill.setCloseTimer(45);
-				boomSkill.setOwner(player);
-				boomSkill.spawn();
-				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 60);
+					player.sendMessage("드래곤볼!");
+					BoomSkill boomSkill = new BoomSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
+					boomSkill.setCloseTick(45);
+					boomSkill.setOwner(player);
+					boomSkill.spawn();
+					player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+				}
 			} else if (item.getType() == Material.DIAMOND_AXE) {
-				player.sendMessage("밥 먹을 시간이네!");
-				SharkSkill sharkSkill = new SharkSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
-				sharkSkill.setCloseTimer(61);
-				sharkSkill.setOwner(player);
-				sharkSkill.spawn();
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 30);
+					player.sendMessage("밥 먹을 시간이네!");
+					SharkSkill sharkSkill = new SharkSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
+					sharkSkill.setCloseTick(61);
+					sharkSkill.setOwner(player);
+					sharkSkill.spawn();
+				}
 			}
 		}
 	}
