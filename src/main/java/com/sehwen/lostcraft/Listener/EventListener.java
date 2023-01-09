@@ -91,7 +91,7 @@ public class EventListener implements Listener {
 					player.setCooldown(item.getType(), tick * 30);
 					player.sendMessage("밥 먹을 시간이네!");
 					SharkSkill sharkSkill = new SharkSkill(player.getLocation().add(0, player.getEyeHeight(), 0));
-					sharkSkill.setCloseTick(61);
+					sharkSkill.setCloseTick(71);
 					sharkSkill.setOwner(player);
 					sharkSkill.spawn();
 				}
