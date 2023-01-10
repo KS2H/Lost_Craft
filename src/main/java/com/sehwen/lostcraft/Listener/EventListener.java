@@ -36,12 +36,18 @@ public class EventListener implements Listener {
 				}
 
 			} else if (item.getType() == Material.BLAZE_ROD) {
-				Entity entity = player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.FIREBALL);
-				entity.setVelocity(player.getLocation().getDirection().multiply(5));
-				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 2);
+					player.sendMessage("폭!파");
+					Entity entity = player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.FIREBALL);
+					entity.setVelocity(player.getLocation().getDirection().multiply(5));
+					player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+				}
 			} else if (item.getType() == Material.NETHERITE_SWORD) {
 				if (player.getCooldown(item.getType()) != 0) {
-					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
 					player.setCooldown(item.getType(), tick * 2);
 					player.sendMessage("가라 가시몬");
@@ -52,7 +58,7 @@ public class EventListener implements Listener {
 				}
 			} else if (item.getType() == Material.IRON_AXE) {
 				if (player.getCooldown(item.getType()) != 0) {
-					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
 					player.setCooldown(item.getType(), tick * 10);
 					player.sendMessage("가라 망치몬");
@@ -63,7 +69,7 @@ public class EventListener implements Listener {
 				}
 			} else if (item.getType() == Material.IRON_SWORD) {
 				if (player.getCooldown(item.getType()) != 0) {
-					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
 					player.setCooldown(item.getType(), tick * 5);
 					player.sendMessage("지면강타");
@@ -74,7 +80,7 @@ public class EventListener implements Listener {
 				}
 			} else if (item.getType() == Material.FIRE_CHARGE) {
 				if (player.getCooldown(item.getType()) != 0) {
-					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
 					player.setCooldown(item.getType(), tick * 60);
 					player.sendMessage("드래곤볼!");
@@ -82,11 +88,11 @@ public class EventListener implements Listener {
 					boomSkill.setCloseTick(45);
 					boomSkill.setOwner(player);
 					boomSkill.spawn();
-					player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
+					player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 0.2f, 1);
 				}
 			} else if (item.getType() == Material.DIAMOND_AXE) {
 				if (player.getCooldown(item.getType()) != 0) {
-					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
 					player.setCooldown(item.getType(), tick * 30);
 					player.sendMessage("밥 먹을 시간이네!");
@@ -94,6 +100,17 @@ public class EventListener implements Listener {
 					sharkSkill.setCloseTick(71);
 					sharkSkill.setOwner(player);
 					sharkSkill.spawn();
+				}
+			} else if (item.getType() == Material.SLIME_BALL) {
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 10);
+					player.sendMessage("물의 힘이다!");
+					WaterBoom waterBoom = new WaterBoom(player.getLocation().add(0, player.getEyeHeight(), 0));
+					waterBoom.setCloseTick(71);
+					waterBoom.setOwner(player);
+					waterBoom.spawn();
 				}
 			}
 		}

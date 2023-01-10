@@ -21,8 +21,10 @@ public class SharkSkill extends SkillObject implements SkillBase {
 			return 1;
 		} else if (tick < 50) {
 			return 2;
-		} else {
+		} else if (tick < 60) {
 			return 3;
+		} else {
+			return 4;
 		}
 	}
 
@@ -86,8 +88,8 @@ public class SharkSkill extends SkillObject implements SkillBase {
 				getLocation().getWorld().spawnParticle(Particle.FALLING_LAVA, getLocation().getX() - 3, getLocation().getY() + 3, getLocation().getZ() + z, 50, 1, 1, 1, 1);
 			}
 			for (int x = -3; x < 4; x++) {
-				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX() + x, getLocation().getY(), getLocation().getZ() + 2), EntityType.EVOKER_FANGS);
-				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX() + x, getLocation().getY(), getLocation().getZ() - 2), EntityType.EVOKER_FANGS);
+				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX() + x, getLocation().getY(), getLocation().getZ() + 3), EntityType.EVOKER_FANGS);
+				getLocation().getWorld().spawnEntity(new Location(getLocation().getWorld(), getLocation().getX() + x, getLocation().getY(), getLocation().getZ() - 3), EntityType.EVOKER_FANGS);
 				getLocation().getWorld().spawnParticle(Particle.FALLING_LAVA, getLocation().getX() + x, getLocation().getY() + 3, getLocation().getZ() + 3, 50, 1, 1, 1, 1);
 				getLocation().getWorld().spawnParticle(Particle.FALLING_LAVA, getLocation().getX() + x, getLocation().getY() + 3, getLocation().getZ() - 3, 50, 1, 1, 1, 1);
 			}
