@@ -9,8 +9,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 public class SharkSkill extends SkillObject implements SkillBase {
-	private int tick = 0;
-
 	public SharkSkill(Location location) {
 		super(location);
 	}
