@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class SpikeWideSkill extends SkillObject implements SkillBase {
-	private int tick = 0;
 
 	public SpikeWideSkill(Location location) {
 		super(location);
@@ -29,9 +28,8 @@ public class SpikeWideSkill extends SkillObject implements SkillBase {
 
 	@Override
 	public void skillEffect() {
-		tick++;
 		getOwner().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 100, false, false));
-		if (tick < 15) {
+		if (getTick() < 15) {
 			teleport(getDirectionVector().multiply(1).add(new Vector(getLocation().getX(), getLocation().getY(), getLocation().getZ())));
 			getLocation().getWorld().spawnEntity(getLocation(), EntityType.EVOKER_FANGS);
 		} else {

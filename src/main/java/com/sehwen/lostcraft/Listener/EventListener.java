@@ -105,7 +105,7 @@ public class EventListener implements Listener {
 				if (player.getCooldown(item.getType()) != 0) {
 					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
 				} else {
-					player.setCooldown(item.getType(), tick * 10);
+					player.setCooldown(item.getType(), tick * 20);
 					player.sendMessage("물의 힘이다!");
 					WaterBoom waterBoom = new WaterBoom(player.getLocation().add(0, player.getEyeHeight(), 0));
 					waterBoom.setCloseTick(71);
