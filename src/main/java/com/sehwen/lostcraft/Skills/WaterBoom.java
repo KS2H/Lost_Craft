@@ -36,14 +36,6 @@ public class WaterBoom extends SkillObject implements SkillBase {
 
 	@Override
 	public void skillEffect() {
-		for (int x = -3; x < 4; x++) {
-			getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, getLocation().getX() + x, getLocation().getY(), getLocation().getZ() + 3, 20, 0.3, 0.3, 0.3, 0.3);
-			getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, getLocation().getX() + x, getLocation().getY(), getLocation().getZ() - 3, 20, 0.3, 0.3, 0.3, 0.3);
-		}
-		for (int z = -3; z < 4; z++) {
-			getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, getLocation().getX() + 3, getLocation().getY(), getLocation().getZ() + z, 20, 0.3, 0.3, 0.3, 0.3);
-			getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, getLocation().getX() - 3, getLocation().getY(), getLocation().getZ() + z, 20, 0.3, 0.3, 0.3, 0.3);
-		}
 		if (getTick() < 20) {
 			teleport(getDirectionVector().multiply(1).add(new Vector(getLocation().getX(), getLocation().getY(), getLocation().getZ())));
 			getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, getLocation(), 20, 0.1, 0.1, 0.1, 0.1);
