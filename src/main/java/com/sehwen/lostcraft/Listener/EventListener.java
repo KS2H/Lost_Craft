@@ -112,6 +112,17 @@ public class EventListener implements Listener {
 					waterBoom.setOwner(player);
 					waterBoom.spawn();
 				}
+			} else if (item.getType() == Material.SNOWBALL) {
+				if (player.getCooldown(item.getType()) != 0) {
+					player.playSound(player.getLocation(), Sound.ITEM_SHIELD_BREAK, 0.2f, 1);
+				} else {
+					player.setCooldown(item.getType(), tick * 20);
+					player.sendMessage("연기");
+					WaterBoom waterBoom = new WaterBoom(player.getLocation().add(0, player.getEyeHeight(), 0));
+					waterBoom.setCloseTick(71);
+					waterBoom.setOwner(player);
+					waterBoom.spawn();
+				}
 			}
 		}
 	}
